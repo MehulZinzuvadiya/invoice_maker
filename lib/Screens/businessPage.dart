@@ -9,6 +9,7 @@ class BuisnessDetails extends StatefulWidget {
 }
 
 class _BuisnessDetailsState extends State<BuisnessDetails> {
+
   TextEditingController bname = TextEditingController();
   TextEditingController bemail = TextEditingController();
   TextEditingController bphone = TextEditingController();
