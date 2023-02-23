@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invoice_maker/buisnessModel/buisnessModel.dart';
 
 class BuisnessDetails extends StatefulWidget {
   const BuisnessDetails({Key? key}) : super(key: key);
@@ -171,6 +172,12 @@ class _BuisnessDetailsState extends State<BuisnessDetails> {
                       textStyle:
                           TextStyle(fontSize: 16, color: Colors.black26)),
                   onPressed: () {
+                    // buisnessModel bm=buisnessModel(
+                    //   bname:bname.text,
+                    //   baddress: baddress.text,
+                    //   bmail: bemail.text,
+                    //   bphone: bphone.text,
+                    // );
                     Navigator.pushNamed(context, 'customer');
                   },
                   child: Text(

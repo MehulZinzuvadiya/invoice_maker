@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:invoice_maker/buisnessModel/buisnessModel.dart';
 import 'package:invoice_maker/main.dart';
+import 'package:invoice_maker/productModel/productModel.dart';
 
 class CustomerDetails extends StatefulWidget {
   const CustomerDetails({Key? key}) : super(key: key);
@@ -10,35 +12,40 @@ class CustomerDetails extends StatefulWidget {
 }
 
 class _CustomerDetailsState extends State<CustomerDetails> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController pname = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController qtycontroller = TextEditingController();
+  TextEditingController txt_cname = TextEditingController();
+  TextEditingController txt_cemail = TextEditingController();
+  TextEditingController txt_cadd = TextEditingController();
+
+  TextEditingController txt_pname = TextEditingController();
+  TextEditingController txt_price = TextEditingController();
+  TextEditingController txt_qty = TextEditingController();
+
+  List<productModel> productlist = [];
 
   @override
   Widget build(BuildContext context) {
+    // buisnessModel bm1 =
+    //     ModalRoute.of(context)!.settings.arguments as buisnessModel;
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            "Customer Details",
-            style: GoogleFonts.aboreto(
-              color: Colors.indigo.shade400,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+        child: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Customer Details",
+          style: GoogleFonts.aboreto(
+            color: Colors.indigo.shade400,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
-          centerTitle: true,
         ),
-        body: Container(
-          child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                  children: [
-                  const Text("Customer Details*"),
+        centerTitle: true,
+      ),
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              const Text("Customer Details*"),
               SizedBox(
                 height: 15,
               ),
@@ -56,19 +63,19 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 TextField(
-                                  controller: nameController,
+                                  controller: txt_cname,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter your name',
                                   ),
                                 ),
                                 TextField(
-                                  controller: emailController,
+                                  controller: txt_cemail,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter your email',
                                   ),
                                 ),
                                 TextField(
-                                  controller: passwordController,
+                                  controller: txt_cadd,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter your Address',
                                   ),
@@ -85,14 +92,6 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                               TextButton(
                                 child: const Text('OK'),
                                 onPressed: () {
-                                  // Process the user input here
-                                  String name = nameController.text;
-                                  String email = emailController.text;
-                                  String password = passwordController.text;
-                                  print('Name: $name');
-                                  print('Email: $email');
-                                  print('Password: $password');
-
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -125,19 +124,19 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 TextField(
-                                  controller: nameController,
+                                  controller: txt_pname,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter product name',
                                   ),
                                 ),
                                 TextField(
-                                  controller: emailController,
+                                  controller: txt_price,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter Price',
                                   ),
                                 ),
                                 TextField(
-                                  controller: passwordController,
+                                  controller: txt_qty,
                                   decoration: const InputDecoration(
                                     hintText: 'Enter QTY',
                                   ),
@@ -154,13 +153,14 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                               TextButton(
                                 child: const Text('ADD'),
                                 onPressed: () {
-                                  // Process the user input here
-                                  String name = pname.text;
-                                  String price = priceController.text;
-                                  String quantity = qtycontroller.text;
-                                  print('pName: $name');
-                                  print('price: $price');
-                                  print('quantity: $quantity');
+                                  setState(() {
+                                    productModel p1 = productModel(
+                                      name: txt_pname.text,
+                                      price: txt_price.text,
+                                      qty: txt_qty.text,
+                                    );
+                                    productlist.add(p1);
+                                  });
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -171,54 +171,111 @@ class _CustomerDetailsState extends State<CustomerDetails> {
                     },
                     child: const Text("Add Product Details")),
               ),
-              ListView.builder(
+              Expanded(
+                child: ListView.builder(
                   physics: BouncingScrollPhysics(),
-                  itemCount: l1.length,
-                  itemBuilder: (context, index) =>
-                      Mywidget(
-                          l1[index].id!, l1[index].name!, l1[index].std!, index)
+                  itemCount: productlist.length,
+                  itemBuilder: (context, index) {
+                    return MyProduct(index, productlist[index].name!,
+                        productlist[index].price!, productlist[index].qty!);
+                  },
+                ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),)
-    );
+    ));
   }
-
-  Widget Mywidget(String? id, String? name, String? std, int index) {
+  Widget MyProduct(int n, String? pname, String? price, String? qnt) {
     return ListTile(
       leading: Text(
-        "$id",
+        "$n",
         style: TextStyle(fontSize: 18),
       ),
-      title: Text("$name"),
-      subtitle: Text("$std"),
-      trailing: SizedBox(
-        width: 100,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                UpdateDialog(name!, id!, std!, index);
-              },
-              icon: Icon(
-                Icons.edit,
-                color: Colors.green.shade300,
-              ),
+      title: Text("$pname"),
+      subtitle: Text("$price"),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("$qnt"),
+          IconButton(
+            onPressed: () {
+              txt_pname=TextEditingController(text:"$pname");
+              txt_price=TextEditingController(text: "$price");
+              txt_qty=TextEditingController(text: "$qnt");
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Enter Product Detail'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        TextField(
+                          controller: txt_pname,
+                          decoration: const InputDecoration(
+                            hintText: 'Enter product name',
+                          ),
+                        ),
+                        TextField(
+                          controller: txt_price,
+                          decoration: const InputDecoration(
+                            hintText: 'Enter Price',
+                          ),
+                        ),
+                        TextField(
+                          controller: txt_qty,
+                          decoration: const InputDecoration(
+                            hintText: 'Enter QTY',
+                          ),
+                        ),
+                      ],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('CANCEL'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('UPDATE'),
+                        onPressed: () {
+                          setState(() {
+                            productModel p1 = productModel(
+                              name: txt_pname.text,
+                              price: txt_price.text,
+                              qty: txt_qty.text,
+                            );
+                            productlist[n]=p1;
+                          });
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(
+              Icons.edit,
+              color: Colors.green.shade300,
             ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  l1.removeAt(index);
-                });
-              },
-              icon: Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                productlist.removeAt(n);
+              });
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.red,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
+}
