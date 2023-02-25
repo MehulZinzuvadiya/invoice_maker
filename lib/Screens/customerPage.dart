@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invoice_maker/buisnessModel/buisnessModel.dart';
+import 'package:invoice_maker/customerModel.dart';
 import 'package:invoice_maker/main.dart';
 import 'package:invoice_maker/productModel/productModel.dart';
 
@@ -24,8 +25,7 @@ class _CustomerDetailsState extends State<CustomerDetails> {
 
   @override
   Widget build(BuildContext context) {
-    // buisnessModel bm1 =
-    //     ModalRoute.of(context)!.settings.arguments as buisnessModel;
+buisnessModel bm1=ModalRoute.of(context)!.settings.arguments as buisnessModel;
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -40,150 +40,166 @@ class _CustomerDetailsState extends State<CustomerDetails> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const Text("Customer Details*"),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(10),
-                child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Enter your information'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                TextField(
-                                  controller: txt_cname,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter your name',
-                                  ),
+      body: Stack(
+        children: [
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  const Text("Customer Details*"),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Enter your information'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    TextField(
+                                      controller: txt_cname,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter your name',
+                                      ),
+                                    ),
+                                    TextField(
+                                      controller: txt_cemail,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter your email',
+                                      ),
+                                    ),
+                                    TextField(
+                                      controller: txt_cadd,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter your Address',
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                TextField(
-                                  controller: txt_cemail,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter your email',
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('CANCEL'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                ),
-                                TextField(
-                                  controller: txt_cadd,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter your Address',
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                ),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('CANCEL'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: const Text("Add Customer Details")),
-              ),
-              Text("Invoice Date*"),
-              Container(
-                height: 50,
-                width: 90,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(color: Colors.grey.shade300),
-                child: Text("${DateTime.now()}"),
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(10),
-                child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Enter Product Detail'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                TextField(
-                                  controller: txt_pname,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter product name',
-                                  ),
+                        child: const Text("Add Customer Details")),
+                  ),
+                  Text("Invoice Date*"),
+                  Container(
+                    height: 50,
+                    width: 90,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(color: Colors.grey.shade300),
+                    child: Text("${DateTime.now()}"),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(10),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Enter Product Detail'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    TextField(
+                                      controller: txt_pname,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter product name',
+                                      ),
+                                    ),
+                                    TextField(
+                                      controller: txt_price,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter Price',
+                                      ),
+                                    ),
+                                    TextField(
+                                      controller: txt_qty,
+                                      decoration: const InputDecoration(
+                                        hintText: 'Enter QTY',
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                TextField(
-                                  controller: txt_price,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter Price',
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('CANCEL'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                ),
-                                TextField(
-                                  controller: txt_qty,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enter QTY',
+                                  TextButton(
+                                    child: const Text('ADD'),
+                                    onPressed: () {
+                                      setState(() {
+                                        productModel p1 = productModel(
+                                          name: txt_pname.text,
+                                          price: txt_price.text,
+                                          qty: txt_qty.text,
+                                        );
+                                        productlist.add(p1);
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                ),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('CANCEL'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: const Text('ADD'),
-                                onPressed: () {
-                                  setState(() {
-                                    productModel p1 = productModel(
-                                      name: txt_pname.text,
-                                      price: txt_price.text,
-                                      qty: txt_qty.text,
-                                    );
-                                    productlist.add(p1);
-                                  });
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: const Text("Add Product Details")),
+                        child: const Text("Add Product Details")),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: productlist.length,
+                      itemBuilder: (context, index) {
+                        return MyProduct(index, productlist[index].name!,
+                            productlist[index].price!, productlist[index].qty!);
+                      },
+                    ),
+                  ),
+                ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: productlist.length,
-                  itemBuilder: (context, index) {
-                    return MyProduct(index, productlist[index].name!,
-                        productlist[index].price!, productlist[index].qty!);
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          ElevatedButton(onPressed: (){
+            customerModel cm1=customerModel(
+              caddress: txt_cadd.text,
+              cemail: txt_cemail.text,
+              cname: txt_cname.text,
+              bname: bm1.bname,
+              baddress: bm1.baddress,
+              bmail: bm1.bmail,
+              bphone: bm1.bphone,
+            );
+            Navigator.pushNamed(context, 'invoice',arguments: cm1);
+          }, child: Text("NEXT"))
+        ],
       ),
     ));
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'Screens/businessPage.dart';
 import 'Screens/customerPage.dart';
+import 'Screens/invoice.dart';
 
 List l1=[];
 
@@ -12,6 +13,7 @@ void main() {
     routes: {
       '/': (context) => BuisnessDetails(),
       'customer': (context) => CustomerDetails(),
+      'invoice':(context) => InvoicePage(),
     },
   ));
 }

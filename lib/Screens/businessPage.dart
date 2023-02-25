@@ -10,7 +10,6 @@ class BuisnessDetails extends StatefulWidget {
 }
 
 class _BuisnessDetailsState extends State<BuisnessDetails> {
-
   TextEditingController bname = TextEditingController();
   TextEditingController bemail = TextEditingController();
   TextEditingController bphone = TextEditingController();
@@ -172,13 +171,13 @@ class _BuisnessDetailsState extends State<BuisnessDetails> {
                       textStyle:
                           TextStyle(fontSize: 16, color: Colors.black26)),
                   onPressed: () {
-                    // buisnessModel bm=buisnessModel(
-                    //   bname:bname.text,
-                    //   baddress: baddress.text,
-                    //   bmail: bemail.text,
-                    //   bphone: bphone.text,
-                    // );
-                    Navigator.pushNamed(context, 'customer');
+                    buisnessModel bm = buisnessModel(
+                      bname: bname.text,
+                      baddress: baddress.text,
+                      bmail: bemail.text,
+                      bphone: bphone.text,
+                    );
+                    Navigator.pushNamed(context, 'customer', arguments: bm);
                   },
                   child: Text(
                     "NEXT",
