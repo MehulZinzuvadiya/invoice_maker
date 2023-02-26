@@ -187,18 +187,25 @@ buisnessModel bm1=ModalRoute.of(context)!.settings.arguments as buisnessModel;
               ),
             ),
           ),
-          ElevatedButton(onPressed: (){
-            customerModel cm1=customerModel(
-              caddress: txt_cadd.text,
-              cemail: txt_cemail.text,
-              cname: txt_cname.text,
-              bname: bm1.bname,
-              baddress: bm1.baddress,
-              bmail: bm1.bmail,
-              bphone: bm1.bphone,
-            );
-            Navigator.pushNamed(context, 'invoice',arguments: cm1);
-          }, child: Text("NEXT"))
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(onPressed: (){
+                customerModel cm1=customerModel(
+                  caddress: txt_cadd.text,
+                  cemail: txt_cemail.text,
+                  cname: txt_cname.text,
+                  bname: bm1.bname,
+                  baddress: bm1.baddress,
+                  bmail: bm1.bmail,
+                  bphone: bm1.bphone,
+                  item: productlist,
+                );
+                Navigator.pushNamed(context, 'invoice',arguments: cm1);
+              }, child: Text("NEXT")),
+            ),
+          )
         ],
       ),
     ));
